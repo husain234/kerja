@@ -1,0 +1,30 @@
+Unit pelayanan diganti peminjam
+Rak tetap gak pindah
+Petugas role = admin,kepala,petugas berkas,petugas pendaftaran
+Peminjaman = Nama peminjam,tombol + ,upload image
+Pengembalian = 1 hari,otomatis terlambat,nama peminjam,popup tempat berkas ada di rak mana
+
+Laporan Peminjaman & Pengembalian = Tabel full
+Laporan pengembalian ada info terlambat
+transaksi belum cetak (no transaksi,nama peminjam,poli,nama pasien,no rm,tanggal pinjam)
+Laporan belum cetak
+
+
+select id_transaksi,norm,
+CASE WHEN tanggal_pinjam > tanggal_kembali 
+THEN 'Terlambat'
+ELSE 'Tidak Terlambat'
+END AS StatusPeminjaman
+from transaksi
+
+- Status berkas Ada/Dipinjam
+- Rak tetap tidak berubah
+- User : Admin = create,read,update,delete
+	 Kepala = read
+	 Petugas = create,read
+- Transaksi/Peminjaman : data berkas masih bisa diinput lagi kalo udah dipinjam
+- Tanggal pinjam-kembali beda 1 hari
+- Opsi No Poli ganti nama poli
+- Cetak transaksi
+- Data Peminjaman/Pengembalian muncul semua & bisa di search pakek tanggal
+- Cetak laporan
