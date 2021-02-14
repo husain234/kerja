@@ -34,7 +34,7 @@ class Pengembalian extends MY_Controller {
         $hasil = $this->Mod_pengembalian->SearchTransaksi($no_transaksi);
         if($hasil->num_rows() > 0) {
             $dtrans = $hasil->row_array();
-            echo $dtrans['id_unit']."|".$dtrans['tanggal_pinjam']."|".$dtrans['tanggal_kembali']."|".$dtrans['unit'];
+            echo $dtrans['id_unit']."|".$dtrans['tanggal_pinjam']."|".$dtrans['tanggal_kembali']."|".$dtrans['unit']."|".$dtrans['rak'];
         }
     }
 
@@ -74,21 +74,16 @@ class Pengembalian extends MY_Controller {
         //update rak berkas
         foreach($table_transaksi as $transaksi){
             
-        $norm = $transaksi->norm;
-        $rak = array(
-            'rak' => $this->input->post('rak')
-        );
+            $norm = $transaksi->norm;
 
-        $this->Mod_pengembalian->UpdateRak($norm, $rak);
+            // Status Berkas
+            $status = array(
+                'status' => 'Ada'
+            );
 
-        // Status Berkas
-        $status = array(
-            'status' => 'Ada'
-        );
+            $this->Mod_pengembalian->UpdateStatusBerkas($norm, $status);
 
-        $this->Mod_pengembalian->UpdateStatusBerkas($norm, $status);
-
-    }
+        }
     }
 
     public function test() {

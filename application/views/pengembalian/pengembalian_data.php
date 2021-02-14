@@ -221,10 +221,12 @@ $(document).ready(function() {
                        $("#id_unit").val(data[0]);  
                        $("#tgl_pinjam").val(data[1]);
                        $("#tgl_kembali").val(data[2]);
-                       $("#unit").val(data[3]); 
+                       $("#unit").val(data[3]);
+                       $("#rak").val(data[4]); 
 
                        $("#telat").attr("disabled", false);
                        $("#telat").focus();
+                       
 
                        $("#tampilberkas").load("<?php echo site_url('pengembalian/tampil_berkas') ?>",
                        "no_transaksi="+no_transaksi);
@@ -259,7 +261,7 @@ $(document).ready(function() {
     $("#simpan_transaksi").click(function(){
 
         var no_transaksi = $("#no_transaksi").val();
-        var id_unit          = $("#id_unit").val();  
+        var id_unit      = $("#id_unit").val();  
         var telat        = $("#telat").val();
         var nominal      = parseInt($("#nominal").val());
         var nominal2     = $("#nominal").val();

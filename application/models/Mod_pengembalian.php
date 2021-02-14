@@ -18,9 +18,23 @@ class Mod_pengembalian extends CI_Model {
 
     public function SearchTransaksi($no_transaksi)
     {
-        $query = $this->db->query("SELECT a.*, b.unit FROM $this->table_transaksi a, $this->table_poli                             b WHERE a.id_transaksi = '$no_transaksi' AND a.id_transaksi 
-                                   NOT IN(SELECT c.id_transaksi FROM $this->table_pengembalian c)
-                                   AND a.id_unit = b.id_unit");
+        $query = $this->db->query("
+        SELECT 
+            a.*,
+            b.unit,
+            d.rak
+        FROM
+            $this->table_transaksi a,
+            $this->table_poli b,
+            $this->table_berkas d
+        WHERE a.id_transaksi = '$no_transaksi' 
+            AND a.id_transaksi NOT IN 
+            (SELECT 
+                c.id_transaksi 
+            FROM
+                $this->table_pengembalian c) 
+            AND a.id_unit = b.id_unit AND a.norm = d.norm
+        ");
         return $query;
     }
 
