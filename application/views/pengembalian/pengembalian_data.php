@@ -84,15 +84,14 @@
                 </form>
 
             <!-- tampil berkas -->
-            <div id="tampilberkas"></div>
+            <!-- <div id="tampilberkas"></div> -->
             <!-- end tampil berkas -->
             
             </div>
             
-            
-            
             <div class="panel-footer">
                 <button id="simpan_transaksi" class="btn btn-primary"><i class="glyphicon glyphicon-saved"></i> Simpan</button>
+                <p ><i class="tgl_sama text-danger"></i></p>
             </div>
         </div><!-- end panel -->
 
@@ -154,7 +153,18 @@
 <script>
 $(document).ready(function() {
 
-    //alert('');
+    // Date format
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
 
     //load datatable
     $('#dataTables-example').DataTable({
@@ -193,9 +203,6 @@ $(document).ready(function() {
         $("#no_transaksi").focus();
 
     });
-    
-
-    
 
     //keypress no_transaksi
     $("#no_transaksi").keypress(function(){
@@ -203,6 +210,7 @@ $(document).ready(function() {
         if(event.which == 13) {
 
             var no_transaksi = $("#no_transaksi").val();
+            // var datekembali = formatDate(Date());
             
             $.ajax({
                 url:"<?php echo site_url('pengembalian/cari_transaksi');?>",
@@ -222,14 +230,19 @@ $(document).ready(function() {
                        $("#tgl_pinjam").val(data[1]);
                        $("#tgl_kembali").val(data[2]);
                        $("#unit").val(data[3]);
-                       $("#rak").val(data[4]); 
+                       $("#rak").val(data[4]);
+
+                       if(data[1] == formatDate(Date())) {
+                            console.log(formatDate(Date()));
+                            $('#simpan_transaksi').attr('disabled','disabled');
+                            $('.tgl_sama').append("Pengembalian dilakukan miniman h+! peminjaman");
+                       }
 
                        $("#telat").attr("disabled", false);
                        $("#telat").focus();
-                       
 
-                       $("#tampilberkas").load("<?php echo site_url('pengembalian/tampil_berkas') ?>",
-                       "no_transaksi="+no_transaksi);
+                    //    $("#tampilberkas").load("<?php echo site_url('pengembalian/tampil_berkas') ?>",
+                    //    "no_transaksi="+no_transaksi);
                    }
 
                    //console.log(data);

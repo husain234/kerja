@@ -54,18 +54,18 @@
                                 <select name="id_unit" class="form-control" id="id_unit">
                                     <option> </option>
                                     <?php foreach($poli as $da): ?> 
-                                    <option  value="<?php echo $da->id_unit ?>"><?php echo $da->id_unit ?></option>
+                                    <option  value="<?php echo $da->id_unit ?>"><?php echo $da->unit ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
                         
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label class="col-lg-4 ">Nama Poli</label>
                             <div class="col-lg-7">
                                 <input type="text" name="unit" id="unit" class="form-control">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>
@@ -202,21 +202,22 @@ $(document).ready(function() {
 
     //ambil data poli berdasarkan id_unit
     // $("#id_unit").click(function(){
-    $("#id_unit").change(function(){    
-        var id_unit = $("#id_unit").val();
-        
-        $.ajax({
-            url:"<?php echo site_url('peminjaman/cari_poli');?>",
-            type:"POST",
-            data:"id_unit="+id_unit,
-            cache:false,
-            success:function(html){
-                $("#unit").val(html);
-                // document.write(html)
-            }
-        })
-        
-    });
+    // Langsung menggunakan nama poli
+            // $("#id_unit").change(function(){    
+            //     var id_unit = $("#id_unit").val();
+                
+            //     $.ajax({
+                    // url:" echo site_url('peminjaman/cari_poli');?>",
+            //         type:"POST",
+            //         data:"id_unit="+id_unit,
+            //         cache:false,
+            //         success:function(html){
+            //             $("#unit").val(html);
+            //             // document.write(html)
+            //         }
+            //     })
+                
+            // });
 
     //show modal search berkas
     $("#cari").click(function(){
@@ -225,7 +226,7 @@ $(document).ready(function() {
     })
 
     //search berkas
-    $("#cariberkas").keyup(function(){
+    $("#cariberkas").keyup( $cari = function(){
         var cariberkas = $('#cariberkas').val();
 
          $.ajax({
@@ -240,6 +241,10 @@ $(document).ready(function() {
         })
         
     })
+
+    $cari();
+
+
 
 
     //tambah berkas dari modal ke form

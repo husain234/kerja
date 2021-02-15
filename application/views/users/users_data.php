@@ -19,7 +19,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <?php echo anchor('users/create', 'Add', array('class' => 'btn btn-primary btn-sm')); ?>
+        <?php echo anchor('users/create', 'Add', array('class' => 'add btn btn-primary btn-sm')); ?>
         <br /><br />
         <div class="panel panel-default">
 
@@ -150,16 +150,27 @@ $(document).ready(function() {
 </script>
 <script>
  
-<?php if($this->session->userdata('role') == "petugas" or "admin"){ ?>
+<?php if($this->session->userdata('role') == "kepala") { ?>
  
   $(document).ready(function(){
  
     $(".hapus").remove();
     $(".edit").remove();
     $(".aksi").remove();
+    $(".add").remove();
  
   });
  
-<?php } else {}; ?>
+<?php } elseif($this->session->userdata('role') == "petugas") {?>
+
+    $(document).ready(function(){
+ 
+        $(".hapus").remove();
+        $(".edit").remove();
+        $(".aksi").remove();
+
+    });
+
+<?php } elseif($this->session->userdata('role') == "admin") { } else {}; ?>
  
 </script>

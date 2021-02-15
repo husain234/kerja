@@ -19,7 +19,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <?php echo anchor('berkas/create', 'Add', array('class' => 'btn btn-primary btn-sm')); ?>
+        <?php echo anchor('berkas/create', 'Add', array('class' => 'add btn btn-primary btn-sm')); ?>
         <?php echo anchor('berkas/detail_rak', 'Total Rak', array('class' => 'btn btn-primary btn-sm')); ?>
         <br /><br />
         <div class="panel panel-default">
@@ -58,9 +58,9 @@
                                         <td><?php echo $row->rak;?></td>
                                         <td><?php echo $row->status;?></td>
                                         <td class="aksi text-center">
-                                <a href="<?php echo base_url('berkas/edit/'.$row->norm) ?>"><input type="submit" class="edit btn-success btn-xs" name="edit" value="Edit"></a>
-                                <a href="#" name="<?php echo $row->nama;?>" class="hapus btn btn-danger btn-xs" kode="<?php echo $row->norm;?>">Hapus</a>
-                            </td>
+                                            <a href="<?php echo base_url('berkas/edit/'.$row->norm) ?>"><input type="submit" class="edit btn-success btn-xs" name="edit" value="Edit"></a>
+                                            <a href="#" name="<?php echo $row->nama;?>" class="hapus btn btn-danger btn-xs" kode="<?php echo $row->norm;?>">Hapus</a>
+                                        </td>
                                     </tr>
                                 <?php $no++; } ?>    
                                 </tbody>
@@ -152,6 +152,31 @@ $(document).ready(function() {
             });
         });
     });
+</script>
+
+<script>
+    <?php if($this->session->userdata('role') == "kepala") { ?>
+ 
+        $(document).ready(function(){
+
+            $(".hapus").remove();
+            $(".edit").remove();
+            $(".aksi").remove();
+            $(".add").remove();
+
+        });
+
+    <?php } elseif($this->session->userdata('role') == "petugas") {?>
+
+        $(document).ready(function(){
+
+            $(".hapus").remove();
+            $(".edit").remove();
+            $(".aksi").remove();
+
+        });
+
+    <?php } elseif($this->session->userdata('role') == "admin") { } else {}; ?>
 </script>
 
 

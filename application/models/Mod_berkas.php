@@ -60,10 +60,17 @@ class Mod_berkas extends CI_Model {
 
     function DocSearch($nama)
     {
-        $this->db->like($this->primary,$nama);
-        $this->db->or_like("nama",$nama);
-        $this->db->limit(10);
-        return $this->db->get($this->table);
+        if (isset($nama) AND $nama == "") {
+            $this->db->where('status !=', 'Dipinjam');
+            $this->db->limit(10);
+            return $this->db->get($this->table);
+        } else {
+            $this->db->where('status !=', 'Dipinjam');
+            $this->db->like($this->primary,$nama);
+            $this->db->or_like("nama",$nama);
+            $this->db->limit(10);
+            return $this->db->get($this->table);
+        }
     }
 
     function totalRak()

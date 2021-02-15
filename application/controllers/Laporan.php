@@ -30,12 +30,10 @@ class Laporan extends MY_Controller {
 
     public function cari_pinjaman()
     {
-        // $tanggal1 = '2018-04-11';
-        // $tanggal2 = '2018-04-17';
         $tanggal1 = $this->input->post('tanggal1');
         $tanggal2 = $this->input->post('tanggal2');
         $data['hasil_search'] = $this->Mod_laporan->searchPinjaman($tanggal1,$tanggal2);
-        $this->load->view('laporan/peminjaman_search', $data);
+        $this->load->view('laporan/peminjaman_search',$data);
     }
 
     public function detail_pinjam()

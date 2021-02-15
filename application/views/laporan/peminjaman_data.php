@@ -129,25 +129,12 @@ $(document).ready(function() {
 
 
     //get data via ajax 
-    $("#tampilkan").click(function(){
+    $("#tampilkan").click( $tampilkan = function(){
 
         var tanggal1 = $("#tanggal1").val();
         var tanggal2 = $("#tanggal2").val();
 
-        
-
-        if(tanggal1 == "") {
-            alert("Silahkan isi periode tanggal awal")
-            $("#tanggal1").focus();
-            return false;
-        }
-        else if(tanggal2 == ""){
-            alert("Silahkan isi periode tanggal akhir")
-            $("#tanggal2").focus();
-            return false;
-        }
-        else{
-
+        if(tanggal1 == "" && tanggal2 == "") {
             $('#loader').html('<img src="<?php echo base_url('assets/img/loader/loader1.gif') ?>"> ');
 
             $.ajax({
@@ -159,17 +146,41 @@ $(document).ready(function() {
                     // console.log(hasil);
                     $("#tampil").html(hasil);
 
-                     $('#loader').html("").hide();
+                    $('#loader').html("").hide();
                 }
             })
+                    //  $('#loader').html("").hide();
+        } else if(tanggal1 == "") {
+            alert("Silahkan isi periode tanggal awal")
+            $("#tanggal1").focus();
+            return false;
+        } else if (tanggal2 == "") {
+            alert("Silahkan isi periode tanggal akhir")
+            $("#tanggal2").focus();
+            return false;
+        } else {
+            $('#loader').html('<img src="<?php echo base_url('assets/img/loader/loader1.gif') ?>"> ');
 
-            //  $('#loader').html("").hide();
+            $.ajax({
+                url:"<?php echo site_url('laporan/cari_pinjaman');?>",
+                type:"POST",
+                data:"tanggal1="+tanggal1+"&tanggal2="+tanggal2,
+                cache:false,
+                success:function(hasil){
+                    // console.log(hasil);
+                    $("#tampil").html(hasil);
 
+                    $('#loader').html("").hide();
+                }
+            })
         }
-
         
+       
+    })
+    $tampilkan();
 
-    }) //end #tampilkan
+    //end #tampilkan
+    
 
      $('body').on('click', '.show-modal', function(){
         

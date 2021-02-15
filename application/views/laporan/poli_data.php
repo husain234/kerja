@@ -92,19 +92,27 @@ $(document).ready(function() {
 </script>
 
 <script>
+    <?php if($this->session->userdata('role') == "kepala") { ?>
  
-<?php if($this->session->userdata('role') == "petugas" or "admin"){ ?>
- 
-  $(document).ready(function(){
- 
-    $(".hapus").remove();
-    $(".edit").remove();
-    $(".aksi").remove();
- 
-  });
- 
-<?php } else {}; ?>
- 
+        $(document).ready(function(){
+
+            $(".hapus").remove();
+            $(".edit").remove();
+            $(".aksi").remove();
+
+        });
+
+    <?php } elseif($this->session->userdata('role') == "petugas") {?>
+
+        $(document).ready(function(){
+
+            $(".hapus").remove();
+            $(".edit").remove();
+            $(".aksi").remove();
+
+        });
+
+    <?php } elseif($this->session->userdata('role') == "admin") { } else {}; ?>
 </script>
 
 

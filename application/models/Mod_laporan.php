@@ -11,12 +11,23 @@ class Mod_laporan extends CI_Model {
         // $this->db->where('tanggal_kembali >','$tanggal2');
 
         // return $this->db->get();
-        return $this->db->query("SELECT a.*,  
+        if (empty($tanggal1) && empty($tanggal2)) {
+            return $this->db->query("SELECT a.*,  
+                                 CASE 
+                                    WHEN a.status = 'N' THEN 'Masih Dipinjam'
+                                 ELSE 'Sudah Dikembalikan' 
+                                 END AS status_pinjam
+                                 FROM transaksi a GROUP BY a.id_transaksi LIMIT 10");
+    
+        } else {
+            return $this->db->query("SELECT a.*,  
                                  CASE 
                                     WHEN a.status = 'N' THEN 'Masih Dipinjam'
                                  ELSE 'Sudah Dikembalikan' 
                                  END AS status_pinjam
                                  FROM transaksi a WHERE a.tanggal_pinjam  BETWEEN '$tanggal1' AND '$tanggal2' GROUP BY a.id_transaksi");
+    
+        }
     }   
     
     public function detailPinjaman($id_transaksi)
@@ -38,9 +49,17 @@ class Mod_laporan extends CI_Model {
 
     public function searchPengembalian($tanggal1, $tanggal2)
     {
-        return $this->db->query("SELECT a.*, b.id_petugas, b.full_name FROM pengembalian a, petugas b WHERE                             a.tgl_pengembalian BETWEEN '$tanggal1' AND '$tanggal2'
+        if (empty($tanggal1) && empty($tanggal2)) {
+                                 
+            return $this->db->query("SELECT a.*, b.id_petugas, b.full_name FROM pengembalian a, petugas b 
+                                 GROUP BY a.id_transaksi LIMIT 10");
+    
+        } else {
+            return $this->db->query("SELECT a.*, b.id_petugas, b.full_name FROM pengembalian a, petugas b 
+                                 WHERE a.tgl_pengembalian BETWEEN '$tanggal1' AND '$tanggal2'
                                  AND a.id_petugas = b.id_petugas 
                                  GROUP BY a.id_transaksi");
+        }
     }
 
     public function detailPengembalian($id_transaksi)

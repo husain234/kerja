@@ -35,6 +35,7 @@
                                         <td>Nama</td>
                                         <td>Alamat</td>
                                         <td>Rak</td>
+                                        <td class="aksi">Aksi</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,10 +50,10 @@
                                         <td><?php echo $row->nama;?></td>
                                         <td><?php echo $row->alamat;?></td>
                                         <td><?php echo $row->rak;?></td>
-                                        <td class="text-center">
-                                <a href="<?php echo base_url('berkas/edit/'.$row->norm) ?>"><input type="submit" class="btn btn-success btn-xs" name="edit" value="Edit"></a>
-                                <a href="#" name="<?php echo $row->nama;?>" class="hapus btn btn-danger btn-xs" kode="<?php echo $row->norm;?>">Hapus</a>
-                            </td>
+                                        <td class="aksi text-center">
+                                            <a href="<?php echo base_url('berkas/edit/'.$row->norm) ?>"><input type="submit" class="edit btn btn-success btn-xs" name="edit" value="Edit"></a>
+                                            <a href="#" name="<?php echo $row->nama;?>" class="hapus btn btn-danger btn-xs" kode="<?php echo $row->norm;?>">Hapus</a>
+                                        </td>
                                     </tr>
                                 <?php $no++; } ?>    
                                 </tbody>
@@ -94,5 +95,30 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script>
+    <?php if($this->session->userdata('role') == "kepala") { ?>
+ 
+        $(document).ready(function(){
+
+            $(".hapus").remove();
+            $(".edit").remove();
+            $(".aksi").remove();
+
+        });
+
+    <?php } elseif($this->session->userdata('role') == "petugas") {?>
+
+        $(document).ready(function(){
+
+            $(".hapus").remove();
+            $(".edit").remove();
+            $(".aksi").remove();
+
+        });
+
+    <?php } elseif($this->session->userdata('role') == "admin") { } else {}; ?>
+</script>
+
 
 
